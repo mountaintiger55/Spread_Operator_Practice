@@ -2,17 +2,17 @@ import React, { useState } from "react";
 
 function App() {
   const [typedText, setTypedText] = useState("");
-  const [newItem, setNewItem] = useState("");
-  var itemList = [];
+  const [items, setItems] = useState([]);
 
   function handleChange(event) {
     setTypedText(event.target.value);
   }
 
   function handleClick() {
-    setNewItem(typedText);
-    itemList.push(newItem);
-    console.log(itemList);
+    setItems((prevItems) => {
+      return [...prevItems, typedText];
+    });
+    setTypedText("");
   }
 
   return (
@@ -33,8 +33,9 @@ function App() {
       </div>
       <div>
         <ul>
-          <li>A Item</li>
-          <li>{newItem}</li>
+          {items.map((item) => (
+            <li>{item}</li>
+          ))}
         </ul>
       </div>
     </div>
